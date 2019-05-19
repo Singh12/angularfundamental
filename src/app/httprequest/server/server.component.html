@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <input type="text" #serverName>
+      <button class="btn btn-primary" (click)="onAddServer(serverName.value)">Add Server</button>
+      <br><br>
+        <button class="btn btn-primary mr-2" (click)="onSave()">Add Server</button>
+        <button class="btn btn-primary" (click)="onGet()">Get Server</button>
+        <br>
+<li *ngIf="(appName | async) as appName">{{appName.appName}}</li>
+    <hr>
+    <ul class="list-group" *ngFor="let server of servers">
+      <li class="list-group-item">{{server.name}} ({{server.id}})</li>
+    </ul>
+    </div>
+  </div>
+</div>

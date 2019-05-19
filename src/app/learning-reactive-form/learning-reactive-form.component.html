@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="formData" formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" formControlName="username" class="form-control">
+            <span 
+            class="help-block" 
+            *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+            class="help-block">
+            <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">
+              This name is not allowed 
+            </span>
+              <span *ngIf="signupForm.get('userData.username').errors['required']">
+                This field is required
+              </span>
+          </span>
+          </div>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" id="email" class="form-control" name="email" formControlName="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="secret">Secret Question</label>
+          <select name="" id="secret" class="form-control" name="secret" formControlName="secret">
+            <option value="pet">Your First Pet?</option>
+            <option value="teacher">Your First Teacher?</option>
+          </select>
+        </div>
+        <div formArrayName="getHobbies">
+          <h4>Your Hobies</h4>
+          <button (click)="addHobbies()" class="btn btn-primary">Add Hobbies</button>
+          <div class="form-group" *ngFor="let hobbbie of signupForm.get('getHobbies').controls; let i = index;">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+        
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" name="gender" [value]="gender" formControlName="gender"> {{gender}}
+          </label>
+        </div>
+     
+        <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

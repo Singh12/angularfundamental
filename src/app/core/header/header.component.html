@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" [routerLink]="['/']">Recipe Book</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/recipes']" routerLinkActive="active">Recipe</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/shopping-list']" routerLinkActive="active">Shopping List</a>
+    </li>
+    
+    <ng-template [ngIf]="!authservice.isAuthenticated()">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="active">SignUp</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/signin']" routerLinkActive="active">SignIn</a>
+      </li>
+    </ng-template>
+
+    <li class="nav-item dropdown" (mouseenter)="openMenu = true" (mouseleave)="openMenu = false" *ngIf="authservice.isAuthenticated()">
+      <a class="nav-link dropdown-toggle" style="cursor:pointer;" id="navbardrop" data-toggle="dropdown" appMenustyleDecoretor>
+        Manage
+      </a>
+      {{appMenustyleDecoretor}}
+      <div *ngIf="openMenu" class="dropdown-menu show">
+        <a class="dropdown-item" style="cursor:pointer;" (click)="saveData()">Save Recipe</a>
+        <a class="dropdown-item" style="cursor:pointer;" (click)="getRecipe()">Get Recipe</a>
+      </div>
+    </li>
+    <li class="nav-item"><a class="nav-link" style="cursor: pointer;" (click)="authservice.signOut()" *ngIf = "authservice.isAuthenticated()">Logout</a></li>
+  </ul>
+</nav>

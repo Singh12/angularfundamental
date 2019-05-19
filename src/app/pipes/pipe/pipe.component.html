@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <input type="text" class="form-control" [(ngModel)]="filterStatus" >
+      <button type="submit" (click)="test()">Button</button>
+      {{serverStatus|async}}
+    <hr>
+      <ul class="list-group">
+        <li
+         class="list-group-item"
+         *ngFor="let server of servers | filter:filterStatus:'status'"
+         [ngClass]="getStatusClasses(server)">
+       
+        <strong>{{server.name | shorten:20}} </strong> | {{ server.instanceType | uppercase}} | {{ server.started | date: 'fullDate'  }} 
+        <span class="badge">
+          {{server.status}}
+        </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
